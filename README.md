@@ -23,7 +23,7 @@ A small game on Flutter's Flame framework
 
 {Make a list of websites that you found helpful in this project}
 * [Flutter & Flame - Step 1: Create your game](https://medium.com/flutter-community/flutter-flame-step-1-create-your-game-b3b6ee387d77)
-* [Web Site Name](http://url.link.goes.here)
+* [Building Games in Flutter with Flame](https://www.raywenderlich.com/27407121-building-games-in-flutter-with-flame-getting-started)
 
 # Future Work
 
