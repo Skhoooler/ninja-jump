@@ -18,11 +18,11 @@ Future<void> main() async {
 }
 
 /// This class encapulates the whole game.
-class NinjaJumpGame extends FlameGame with HasCollidables {
+class NinjaJumpGame extends FlameGame {
+  final Player _player = Player();
+
   @override
   Future<void> onLoad() async {
-    unawaited(add(RocketComponent(position: size / 2, size: Vector2.all(20))));
-
-    return super.onLoad();
+    add(_player);
   }
 }

@@ -1,7 +1,5 @@
 import 'package:flame/components.dart';
-import 'package:flame/extensions.dart';
-import 'package:flame/geometry.dart';
-import 'package:flutter/material.dart';
+
 
 class Player extends SpriteComponent with HasGameRef {
 
@@ -13,5 +11,7 @@ class Player extends SpriteComponent with HasGameRef {
   @override
   Future<void> onLoad() async {
     super.onLoad();
+    sprite = await gameRef.loadSprite('Idle.png');
+    position = gameRef.size;
   }
 }
