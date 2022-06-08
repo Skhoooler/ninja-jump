@@ -8,6 +8,9 @@ import 'package:flame/sprite.dart';
 
 import 'package:flutter/material.dart';
 
+import 'package:ninja_jump/components/player.dart';
+import 'package:ninja_jump/animations/playerAnimations.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Flame.device.setLandscape();
@@ -17,20 +20,29 @@ Future<void> main() async {
   runApp(GameWidget(game: game));
 }
 
-/// This class encapulates the whole game.
+/// This class encapsulates the whole game.
 class NinjaJumpGame extends FlameGame {
+  final Vector2 startingPosition = Vector2(-150, 100);
+
   @override
   Future<void> onLoad() async {
-    final idleSpriteSheetImage = await images.load('Idle.png');
+    /*final idleSpriteSheetImage = await images.load('Idle.png');
     final idleSpriteSheet =
         SpriteSheet(image: idleSpriteSheetImage, srcSize: Vector2.all(200));
-    final idleAnimation = idleSpriteSheet.createAnimation(row: 0, stepTime: .15);
+    final idleAnimation =
+        idleSpriteSheet.createAnimation(row: 0, stepTime: .15);
 
-    final playerComponent = SpriteAnimationComponent(
-      animation: idleAnimation,
-      size: Vector2(200, 200),
-    );
+    Player player = Player(
+        playerAnimation: SpriteAnimationComponent(
+            animation: idleAnimation,
+            size: Vector2.all(450),
+            position: Vector2(0, 0),));//Vector2(-150, 100)));
+    add(player.playerAnimation);*/
 
-    add(playerComponent);
+    PlayerAnimations.idle().then((animation) {
+      Player player = Player(playerAnimation: animation);
+      player.setPositionByVector(startingPosition);
+      add(player.playerAnimation);
+    });
   }
 }
