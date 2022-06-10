@@ -15,25 +15,35 @@ class PlayerAnimations {
 
   /// Returns the Player Idle animation
   static Future<SpriteAnimationComponent> idle() async {
-    return await _setAnimation('Idle.png');
+    return await _setAnimation('Idle.png', 8);
+  }
+
+  /// Returns the Player Jump animation
+  static Future<SpriteAnimationComponent> jump() async {
+    return await _setAnimation('Jump.png', 2);
+  }
+
+  /// Returns the Player Attack animation
+  static Future<SpriteAnimationComponent> attack() async {
+    return await _setAnimation('Attack1.png', 2);
   }
 
   /// Sets the animation from the selected Player Animation Sprite Sheet file
-  static Future<SpriteAnimationComponent> _setAnimation(String file) async {
+  static Future<SpriteAnimationComponent> _setAnimation(String file, int frames) async {
     // Load the sprite sheet as an image
-    final Image idleSpriteSheetImage = await Flame.images.load(file);
+    final Image spriteSheetImage = await Flame.images.load(file);
 
     // Create a Sprite Sheet object out of the image
-    final idleSpriteSheet =
-        SpriteSheet(image: idleSpriteSheetImage, srcSize: Vector2.all(200));
+    final spriteSheet =
+        SpriteSheet(image: spriteSheetImage, srcSize: Vector2.all(200));
 
     // Create an animation object out of the Sprite Sheet object
-    final idleAnimation =
-        idleSpriteSheet.createAnimation(row: 0, stepTime: animationSpeed);
+    final animation =
+        spriteSheet.createAnimation(row: 0, stepTime: animationSpeed);
 
     // Return the SpriteAnimationComponent
     return SpriteAnimationComponent(
-      animation: idleAnimation,
+      animation: animation,
       size: Vector2.all(defaultPlayerSize),
       position: Vector2(0, 0),
     );
