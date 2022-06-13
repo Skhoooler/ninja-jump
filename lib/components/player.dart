@@ -32,6 +32,8 @@ class Player extends SpriteAnimationGroupComponent
 
   @override
   void update(double dt) async {
+    super.update(dt);
+
     if (jumping) {
       // Set the player to jumping animation
       current = PlayerStatus.jumping;
