@@ -6,11 +6,12 @@ import 'package:flame/events.dart';
 import 'package:flame/experimental.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
+import 'package:flame/parallax.dart';
 
 import 'package:flutter/material.dart';
 
 import 'package:ninja_jump/components/player.dart';
-import 'package:ninja_jump/components/jump_controller.dart';
+import 'components/background.dart';
 import 'package:ninja_jump/entity_status.dart';
 
 Future<void> main() async {
@@ -33,25 +34,10 @@ class NinjaJumpGame extends FlameGame
   void onTapDown(TapDownEvent event) {
     Player.jumping = true;
   }
-  
+
   /// Load the animations into the game
   @override
   Future<void> onLoad() async {
-    // Set the player animation to idle at the beginning of the game
-    /*PlayerAnimations.attack().then((animation) {
-      Player player =
-          Player(playerAnimation: animation, status: PlayerStatus.idle);
-      player.setPositionByVector(startingPosition);
-      add(player.playerAnimation);
-    });*/
-
-    /// Load the Jump Controller
-    /*unawaited(
-      add(
-        JumpController(width: size[0], height: size[1]),
-      ),
-    );*/
-
     /// Load Player Animations
     // Player Idle Animation
     final playerIdle = await loadSpriteAnimation(
@@ -137,6 +123,8 @@ class NinjaJumpGame extends FlameGame
       PlayerStatus.hit: playerHit,
     };
 
+    add(BackgroundComponent());
+
     // Add the player component to the Flame component Tree
     unawaited(
       add(
@@ -147,7 +135,6 @@ class NinjaJumpGame extends FlameGame
         ),
       ),
     );
-    Iterable<Component> descendant = descendants();
 
     // Return
     return super.onLoad();
