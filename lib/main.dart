@@ -10,9 +10,9 @@ import 'package:flame/parallax.dart';
 
 import 'package:flutter/material.dart';
 
-import 'package:ninja_jump/components/player.dart';
+import 'package:ninja_jump/entities/player.dart';
 import 'components/background.dart';
-import 'package:ninja_jump/entity_status.dart';
+import 'package:ninja_jump/entities/entity_status.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,7 +36,7 @@ class NinjaJumpGame extends FlameGame
     Player.jumping = true;
   }
 
-  /// Load the animations into the game
+  /// Load the entities into the game
   @override
   Future<void> onLoad() async {
     /// Load Player Animations
@@ -112,7 +112,7 @@ class NinjaJumpGame extends FlameGame
           textureSize: Vector2(200, 200),
         ));
 
-    // Map Containing all player animations
+    // Map Containing all player entities
     final playerAnimations = {
       PlayerStatus.idle: playerIdle,
       PlayerStatus.running: playerRun,
@@ -124,6 +124,7 @@ class NinjaJumpGame extends FlameGame
       PlayerStatus.hit: playerHit,
     };
 
+    // Add the background
     add(BackgroundComponent());
 
     // Add the player component to the Flame component Tree

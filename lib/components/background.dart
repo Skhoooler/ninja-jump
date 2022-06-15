@@ -1,6 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame/parallax.dart';
-import 'package:ninja_jump/components/player.dart';
+import 'package:ninja_jump/entities/player.dart';
 import '../main.dart';
 
 class BackgroundComponent extends ParallaxComponent<NinjaJumpGame> {

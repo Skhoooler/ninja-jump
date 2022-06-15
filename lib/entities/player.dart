@@ -1,13 +1,13 @@
 /// Player.dart
 ///
-/// Handles all of the behaviors and animations of the player
+/// Handles all of the behaviors and entities of the player
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/input.dart';
 import 'package:flame/sprite.dart';
 
-import 'package:ninja_jump/entity_status.dart';
+import 'package:ninja_jump/entities/entity_status.dart';
 
 class Player extends SpriteAnimationGroupComponent
     with HasGameRef, CollisionCallbacks {
