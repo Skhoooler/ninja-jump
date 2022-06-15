@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 
 import 'package:ninja_jump/entities/player.dart';
 import 'components/background.dart';
-import 'package:ninja_jump/entities/entity_status.dart';
+import 'package:ninja_jump/entities/player_status.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -7,7 +7,7 @@ import 'package:flame/components.dart';
 import 'package:flame/input.dart';
 import 'package:flame/sprite.dart';
 
-import 'package:ninja_jump/entities/entity_status.dart';
+import 'package:ninja_jump/entities/player_status.dart';
 
 class Player extends SpriteAnimationGroupComponent
     with HasGameRef, CollisionCallbacks {
