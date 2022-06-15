@@ -152,9 +152,11 @@ class NinjaJumpGame extends FlameGame
 
     // Add an eye enemy
     unawaited(add(EyeEnemy(
-        position: Vector2(0, 0),
-        size: Vector2.all(450),
-        animations: eyeAnimations)));
+      position: Vector2(0, 0),
+      size: Vector2.all(450),
+      animations: eyeAnimations,
+      screenSize: size,
+    )));
 
     // Add the player component to the Flame component Tree
     unawaited(
