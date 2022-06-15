@@ -2,17 +2,18 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:flame/components.dart';
-import 'package:flame/events.dart';
 import 'package:flame/experimental.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
-import 'package:flame/parallax.dart';
 
 import 'package:flutter/material.dart';
+import 'package:ninja_jump/entities/eye.dart';
 
 import 'package:ninja_jump/entities/player.dart';
 import 'components/background.dart';
 import 'package:ninja_jump/entities/player_status.dart';
+import 'entities/enemy_status.dart';
+import 'entities/enemyFactory.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,6 +30,8 @@ class NinjaJumpGame extends FlameGame
     with HasCollisionDetection, HasTappableComponents {
   final Vector2 startingPosition = Player.startingPosition;
   final double animationSpeed = Player.animationSpeed;
+
+  //NinjaJumpGame( ){enemiesFactory.reset()}
 
   @override
   void onTapDown(TapDownEvent event) {
@@ -124,8 +127,34 @@ class NinjaJumpGame extends FlameGame
       PlayerStatus.hit: playerHit,
     };
 
+    /// Load Enemy Animations
+    // Eye enemy animations
+    final eyeDie = await loadSpriteAnimation(
+        "eye - die.png",
+        SpriteAnimationData.sequenced(
+            amount: 4,
+            stepTime: animationSpeed,
+            textureSize: Vector2(150, 150)));
+    final eyeRun = await loadSpriteAnimation(
+        "eye - run.png",
+        SpriteAnimationData.sequenced(
+            amount: 8,
+            stepTime: animationSpeed,
+            textureSize: Vector2(150, 150)));
+
+    final eyeAnimations = {
+      EnemyStatus.running: eyeRun,
+      EnemyStatus.dying: eyeDie
+    };
+
     // Add the background
     add(BackgroundComponent());
+
+    // Add an eye enemy
+    unawaited(add(EyeEnemy(
+        position: Vector2(0, 0),
+        size: Vector2.all(450),
+        animations: eyeAnimations)));
 
     // Add the player component to the Flame component Tree
     unawaited(
@@ -140,5 +169,10 @@ class NinjaJumpGame extends FlameGame
 
     // Return
     return super.onLoad();
+  }
+
+  @override
+  void update(double dt) async {
+    super.update(dt);
   }
 }
