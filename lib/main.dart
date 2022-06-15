@@ -32,6 +32,7 @@ class NinjaJumpGame extends FlameGame
 
   @override
   void onTapDown(TapDownEvent event) {
+    super.onTapDown(event);
     Player.jumping = true;
   }
 

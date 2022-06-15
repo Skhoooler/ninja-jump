@@ -15,12 +15,11 @@ class Player extends SpriteAnimationGroupComponent
   static double animationSpeed = .15;
   static Vector2 startingPosition = Vector2(-150, 100);
 
-
-  int _jumpFrames = 20;
+  double _jumpIndex = -50;
+  double jumpSpeed = 1.4;
   static bool jumping = false;
-
-  int _fallFrames = 20;
   static bool falling = false;
+  static bool moving = false;
 
   /// Constructor takes an SpriteAnimationComponent
   Player({
@@ -34,41 +33,24 @@ class Player extends SpriteAnimationGroupComponent
   void update(double dt) async {
     super.update(dt);
 
+    /// Handle Jumping
     if (jumping) {
-      // Set the player to jumping animation
       current = PlayerStatus.jumping;
+      //y = startingPosition.y - (-(.25 * _jumpFrames * _jumpFrames) + 100); // Short Jump
+      // Jump Height = Starting Position - (-x^2/10 + 250)
+      y = startingPosition.y - (-(.1 * _jumpIndex * _jumpIndex) + 250);
+      _jumpIndex += jumpSpeed;
 
-      // If the player still has jump frames, add 10 to its height, and decrease
-      // the its jump frames by 1
-      if (_jumpFrames > 0) {
-        y -= 11; // Apparently, down is up, so -10 to go up 10 pixels
-        _jumpFrames -= 1;
+      if (_jumpIndex > 0 && _jumpIndex < 50){
+        current = PlayerStatus.falling;
       }
-      // Reset the jump values, set the player to fall
-      else {
-        jumping = false;
-        _jumpFrames = 20;
-
-        falling = true;
-      }
-    }
-    if (falling) {
-      // Set the player to falling animation
-      current = PlayerStatus.falling;
-
-      // If the player still has fall frames, subtract 10 from its height, and
-      // decrease its fall frames by 1
-      if (_fallFrames > 0) {
-        y += 11;
-        _fallFrames -= 1;
-      }
-      // Reset the fall value, set the player to run
-      else {
-        falling = false;
-        _fallFrames = 20;
-
+      else if(_jumpIndex > 50) {
+        y = startingPosition.y;
         current = PlayerStatus.running;
+        jumping = false;
+        _jumpIndex = -50;
       }
+      moving = true;
     }
   }
 
@@ -79,4 +61,6 @@ class Player extends SpriteAnimationGroupComponent
     position = startingPosition;
     current = PlayerStatus.idle;
   }
+
+  static bool isMoving() => moving;
 }
