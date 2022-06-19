@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flame/collisions.dart';
 import 'package:flame/src/sprite_animation.dart';
 import 'package:ninja_jump/entities/player.dart';
 
@@ -28,7 +29,7 @@ class EyeEnemy extends Enemy {
 
   @override
   void update(double dt) async {
-    if (Player.isMoving()) {
+    if (Player.isMoving() && Player.alive) {
       x -= speed;
     }
 
@@ -43,6 +44,8 @@ class EyeEnemy extends Enemy {
     current = EnemyStatus.running;
 
     transform.scale = Vector2(-1, 1);
+
+    add(CircleHitbox());
     await super.onLoad();
   }
 

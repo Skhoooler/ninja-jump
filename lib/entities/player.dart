@@ -9,6 +9,8 @@ import 'package:flame/sprite.dart';
 
 import 'package:ninja_jump/entities/player_status.dart';
 
+import 'enemy.dart';
+
 class Player extends SpriteAnimationGroupComponent
     with HasGameRef, CollisionCallbacks {
 
@@ -20,6 +22,7 @@ class Player extends SpriteAnimationGroupComponent
   static bool jumping = false;
   static bool falling = false;
   static bool moving = false;
+  static bool alive = true;
 
   /// Constructor takes an SpriteAnimationComponent
   Player({
@@ -28,29 +31,42 @@ class Player extends SpriteAnimationGroupComponent
     required Map<PlayerStatus, SpriteAnimation> animations,
   }) : super(position: position, size: size, animations: animations);
 
+  @override
+  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+    if (other is Enemy) {
+      alive = false;
+    }
+
+    super.onCollision(intersectionPoints, other);
+  }
+
 
   @override
   void update(double dt) async {
     super.update(dt);
 
     /// Handle Jumping
-    if (jumping) {
-      current = PlayerStatus.jumping;
-      //y = startingPosition.y - (-(.25 * _jumpFrames * _jumpFrames) + 100); // Short Jump
-      // Jump Height = Starting Position - (-x^2/10 + 250)
-      y = startingPosition.y - (-(.1 * _jumpIndex * _jumpIndex) + 250);
-      _jumpIndex += jumpSpeed;
+    if (alive) {
+      if (jumping) {
+        current = PlayerStatus.jumping;
 
-      if (_jumpIndex > 0 && _jumpIndex < 50){
-        current = PlayerStatus.falling;
+        y = startingPosition.y - (-(.1 * _jumpIndex * _jumpIndex) + 250);
+        _jumpIndex += jumpSpeed;
+
+        if (_jumpIndex > 0 && _jumpIndex < 50) {
+          current = PlayerStatus.falling;
+        }
+        else if (_jumpIndex > 50) {
+          y = startingPosition.y;
+          current = PlayerStatus.running;
+          jumping = false;
+          _jumpIndex = -50;
+        }
+        moving = true;
       }
-      else if(_jumpIndex > 50) {
-        y = startingPosition.y;
-        current = PlayerStatus.running;
-        jumping = false;
-        _jumpIndex = -50;
-      }
-      moving = true;
+    } else {
+      current = PlayerStatus.dying;
+      moving = false;
     }
   }
 
@@ -58,6 +74,7 @@ class Player extends SpriteAnimationGroupComponent
   @override
   Future<void> onLoad() async {
     await super.onLoad();
+    //add(RectangleHitbox());
     position = startingPosition;
     current = PlayerStatus.idle;
   }

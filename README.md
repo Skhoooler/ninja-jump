@@ -3,21 +3,28 @@ A small game on Flutter's Flame framework
 
 # Overview
 
-{Important!  Do not say in this section that this is college assignment.  Talk about what you are trying to accomplish as a software engineer to further your learning.}
+I wanted to try my hand at making a game. It was what originally got me interested in software development,
+and I since I have been studying mobile app development with flutter recently, I wanted to give it a try.
+I found the Flame game framework that worked with flutter, and this is the result. It is not as polished
+as I would have liked, but I am proud of the result.
 
-{Provide a description the game that you wrote. Describe how to play your game.}
+You play the game by clicking on the screen, either with a mouse on an emulator, or by tapping on a
+phone. Since there is no collision detection yet, the character just jumps as an enemy floats by.
 
-{Describe your purpose for writing this software.}
+I did not make any of the assets for the game, and full attribution for that goes to the following creators
+on [itch.io](https://itch.io):
+
+* [Background: Ansimuz](https://ansimuz.itch.io/cyberpunk-street-environment)
+* [Player and Enemy: LuizMelo](https://luizmelo.itch.io)
 
 {Provide a link to your YouTube demonstration.  It should be a 4-5 minute demo of the game being played and a walkthrough of the code.}
 
-[Software Demo Video](http://youtube.link.goes.here)
+[Ninja Jump](https://youtu.be/9l1gMbHLJiI)
 
 # Development Environment
 
-{Describe the tools that you used to develop the software}
-
-{Describe the programming language that you used and any libraries.}
+For this project, I used Dart and the Flutter and Flame frameworks. Flutter provided the mobile app
+support, while Flame was the game framework I chose to use.
 
 # Useful Websites
 
@@ -27,7 +34,6 @@ A small game on Flutter's Flame framework
 
 # Future Work
 
-{Make a list of things that you need to fix, improve, and add in the future.}
-* Item 1
-* Item 2
-* Item 3
+* Collision Detection
+* More enemies
+* Main/Pause menus
